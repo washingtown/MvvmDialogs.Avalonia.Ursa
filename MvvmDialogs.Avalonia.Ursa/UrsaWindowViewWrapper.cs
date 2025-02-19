@@ -46,7 +46,8 @@ public class UrsaWindowViewWrapper : IView
 
         ViewModel = viewModel;
     }
-
+    
+    
     public void Show(IView? owner)
     {
         var own = owner?.RefObj switch

@@ -6,7 +6,10 @@ using Avalonia.Media;
 using Avalonia.Threading;
 using HanumanInstitute.MvvmDialogs;
 using HanumanInstitute.MvvmDialogs.Avalonia;
+using HanumanInstitute.MvvmDialogs.FrameworkDialogs;
 using Microsoft.Extensions.Logging;
+using Ursa.Controls;
+using MessageBoxButton = HanumanInstitute.MvvmDialogs.FrameworkDialogs.MessageBoxButton;
 
 namespace MvvmDialogs.Avalonia.Ursa;
 
@@ -49,12 +52,18 @@ public class UrsaWindowDialogManager : DialogManagerBase<ContentControl>
         wrapper.InitializeExisting((INotifyPropertyChanged)view.DataContext!, view);
         return wrapper;
     }
-
+    
+    
     public override IView? FindViewByViewModel(INotifyPropertyChanged viewModel)
     {
-        return Windows.FirstOrDefault(x => ReferenceEquals(viewModel, x.DataContext)).AsWindowWrapper(_windowFactory);
+        return FindWindowByViewModel(viewModel).AsWindowWrapper(_windowFactory);
     }
 
+    private Window? FindWindowByViewModel(INotifyPropertyChanged viewModel)
+    {
+        return Windows.FirstOrDefault(x => ReferenceEquals(viewModel, x.DataContext));
+    }
+    
     public override IView? GetMainWindow()
     {
         return (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.AsWindowWrapper(_windowFactory);
@@ -107,6 +116,5 @@ public class UrsaWindowDialogManager : DialogManagerBase<ContentControl>
             DispatcherPriority.Render);
         return tcs.Task;
     }
-    
     
 }

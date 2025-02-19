@@ -22,9 +22,9 @@ public static class UrsaUiExtensions
         {
             return null;
         }
-        var result = new UrsaWindowViewWrapper(windowFactory);
-        result.InitializeExisting((INotifyPropertyChanged)view.DataContext!, view);
-        return result;
+        var wrapper = new UrsaWindowViewWrapper(windowFactory);
+        wrapper.InitializeExisting((INotifyPropertyChanged)view.DataContext!, view);
+        return wrapper;
     }
 
     /// <summary>

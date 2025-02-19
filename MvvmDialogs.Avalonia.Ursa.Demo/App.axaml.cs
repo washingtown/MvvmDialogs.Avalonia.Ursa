@@ -22,15 +22,13 @@ public partial class App : Application
         AvaloniaXamlLoader.Load(this);
 
         var serviceCollection = new ServiceCollection();
-        serviceCollection.AddSingleton<IDialogService>(() =>
-        {
-            new DialogService(
-                new UrsaWindowDialogManager(
-                    viewLocator:new UrsaViewLocator(),
-                    dialogFactory:new DialogFactory().AddMessageBox()
-                    )
-                )
-        })
+        serviceCollection.AddSingleton<IDialogService>(_ => new DialogService(
+            new UrsaWindowDialogManager(
+                viewLocator: new UrsaViewLocator(),
+                dialogFactory: new DialogFactory().AddUrsaWindowMessageBox()
+            )
+        ));
+        Services = serviceCollection.BuildServiceProvider();
     }
 
     public override void OnFrameworkInitializationCompleted()
