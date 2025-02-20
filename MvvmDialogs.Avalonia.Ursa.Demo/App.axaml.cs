@@ -22,13 +22,20 @@ public partial class App : Application
         AvaloniaXamlLoader.Load(this);
 
         var serviceCollection = new ServiceCollection();
-        serviceCollection.AddSingleton<IDialogService>(_ => new DialogService(
+        serviceCollection.AddSingleton<UrsaViewLocator>()
+            .AddSingleton<IViewLocator>(provider => provider.GetRequiredService<UrsaViewLocator>());
+        serviceCollection.AddSingleton<IDialogService>(provider => new DialogService(
             new UrsaWindowDialogManager(
-                viewLocator: new UrsaViewLocator(),
+                viewLocator: provider.GetService<IViewLocator>(),
                 dialogFactory: new DialogFactory().AddUrsaWindowMessageBox()
             )
         ));
+        serviceCollection.AddSingleton<MainViewModel>()
+            .AddSingleton<WindowDialogViewModel>()
+            .AddSingleton<OverlayDialogViewModel>();
+        
         Services = serviceCollection.BuildServiceProvider();
+        
     }
 
     public override void OnFrameworkInitializationCompleted()
@@ -38,10 +45,12 @@ public partial class App : Application
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
             // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
             DisableAvaloniaDataAnnotationValidation();
-            desktop.MainWindow = new MainWindow
-            {
-                DataContext = new MainWindowViewModel(),
-            };
+            var viewLocator = Services.GetRequiredService<UrsaViewLocator>();
+            DataTemplates.Add(viewLocator);
+            var mainVM = Services.GetRequiredService<MainViewModel>();
+            var mainWindow = (MainWindow)viewLocator.Create(mainVM);
+            mainWindow.DataContext = mainVM;
+            desktop.MainWindow = mainWindow;
         }
 
         base.OnFrameworkInitializationCompleted();

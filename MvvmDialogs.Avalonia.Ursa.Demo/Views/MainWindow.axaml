@@ -1,20 +1,37 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:MvvmDialogs.Avalonia.Ursa.Demo.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="MvvmDialogs.Avalonia.Ursa.Demo.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="MvvmDialogs.Avalonia.Ursa.Demo">
-
-    <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
-
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-</Window>
+<u:UrsaWindow xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:MvvmDialogs.Avalonia.Ursa.Demo.ViewModels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:u="https://irihi.tech/ursa"
+    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+    x:Class="MvvmDialogs.Avalonia.Ursa.Demo.Views.MainWindow"
+    x:DataType="vm:MainViewModel"
+    Icon="/Assets/avalonia-logo.ico"
+    Title="MvvmDialogs.Avalonia.Ursa.Demo">
+    <Grid RowDefinitions="Auto *" ColumnDefinitions="Auto *">
+        <Border Grid.ColumnSpan="2" 
+                Height="36"
+                BorderThickness="0 0  0 1"
+                BorderBrush="{DynamicResource SemiColorBorder}">
+            <TextBlock Padding="8 4" VerticalAlignment="Center"
+                       FontWeight="Bold"
+                       Text="UrsaDialogDemo"/>
+        </Border>
+        <Border Grid.Row="1" Grid.Column="0"
+                BorderThickness="0 0  1 0"
+                BorderBrush="{DynamicResource SemiColorBorder}">
+            <u:NavMenu ExpandWidth="200">
+                <u:NavMenuItem Header="Window Dialog"
+                               Command="{Binding NavigateCommand}"
+                               CommandParameter="WindowDialog"/>
+                <u:NavMenuItem Header="Overlay Dialog"
+                               Command="{Binding NavigateCommand}"
+                               CommandParameter="OverlayDialog"/>
+            </u:NavMenu>
+        </Border>
+        <Border Grid.Row="1" Grid.Column="1" Padding="8">
+            <ContentControl Content="{Binding SelectedViewModel}"/>
+        </Border>
+    </Grid>
+</u:UrsaWindow>

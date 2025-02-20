@@ -1,4 +1,6 @@
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using HanumanInstitute.MvvmDialogs;
 using HanumanInstitute.MvvmDialogs.Avalonia;
 using HanumanInstitute.MvvmDialogs.FrameworkDialogs;
@@ -35,21 +37,22 @@ public class UrsaWindowMessageBoxDialogFactory : DialogFactoryBase
         };
         ConfigureDialogWindow(window, options);
         var ownerRef = owner?.GetRef();
-        if (ownerRef is Window ownerWin)
+        switch (ownerRef)
         {
-            var result = await window.ShowDialog<DialogResult>(ownerWin);
-            return result switch
+            case Window ownerWin:
             {
-                DialogResult.Yes => true,
-                DialogResult.OK => true,
-                DialogResult.No => false,
-                DialogResult.Cancel => null,
-                _ => null
-            };
-        }
-        else
-        {
-            throw new InvalidCastException("Owner must be of type Window.");
+                var result = await window.ShowDialog<DialogResult>(ownerWin);
+                return result switch
+                {
+                    DialogResult.Yes => true,
+                    DialogResult.OK => true,
+                    DialogResult.No => false,
+                    DialogResult.Cancel => null,
+                    _ => null
+                };
+            }
+            default:
+                throw new InvalidCastException("Owner must be of type Window.");
         }
     }
     

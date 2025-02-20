@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:u="https://irihi.tech/ursa"
+             xmlns:vm="using:MvvmDialogs.Avalonia.Ursa.Demo.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:WindowDialogViewModel"
+             x:Class="MvvmDialogs.Avalonia.Ursa.Demo.Views.WindowDialogView">
+    <Grid>
+        <HeaderedContentControl Theme="{DynamicResource GroupBox}"
+                                Header="MessageBox">
+            <u:Form LabelPosition="Left" LabelWidth="*">
+                <TextBox Width="300" u:FormItem.Label="Title" Text="{Binding MessageboxTitle}"/>
+                <TextBox Width="300" u:FormItem.Label="Message" Text="{Binding Message}"/>
+                <Button u:FormItem.NoLabel="True"
+                        Command="{Binding ShowMessageBoxCommand}">Show MessageBox</Button>
+            </u:Form>
+        </HeaderedContentControl>
+    </Grid>
+</UserControl>

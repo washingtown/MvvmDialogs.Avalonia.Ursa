@@ -34,15 +34,13 @@ public static class UrsaUiExtensions
     /// <returns>The ContentControl held within the IView.</returns>
     public static ContentControl? GetRef(this IView? view)
     {
-        if (view is ViewWrapper v)
+        return view switch
         {
-            return v.Ref;
-        }
-        else if (view is ViewNavigationWrapper nav)
-        {
-            return nav.Ref;
-        }
-        return null;
+            UrsaWindowViewWrapper uwv=>uwv.Ref,
+            ViewWrapper v => v.Ref,
+            ViewNavigationWrapper nav => nav.Ref,
+            _ => null
+        };
     }
 
     // /// <summary>

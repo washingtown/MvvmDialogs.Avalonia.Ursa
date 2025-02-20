@@ -4,11 +4,20 @@
              xmlns:u="https://irihi.tech/ursa"
              xmlns:u-Semi="https://irihi.tech/ursa/themes/semi"
              x:Class="MvvmDialogs.Avalonia.Ursa.Demo.App"
+             xmlns:helpers="clr-namespace:Irihi.Avalonia.Shared.Helpers;assembly=Irihi.Avalonia.Shared"
              RequestedThemeVariant="Default">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
   
     <Application.Styles>
         <semi:SemiTheme/>
+        <semi:SemiPopupAnimations/>
         <u-Semi:SemiTheme/>
+        <!--This style is created to demonstrate Dialog StyleClass feature. This style is applied to Dialog Window-->
+        <Style Selector="u|DefaultDialogWindow.Custom">
+            <Style Selector="^ /template/ Button#PART_OKButton">
+                <Setter Property="Content" Value="CUSTOM"/>
+                <Setter Property="helpers:ClassHelper.Classes" Value="Warning"></Setter>
+            </Style>
+        </Style>
     </Application.Styles>
 </Application>
