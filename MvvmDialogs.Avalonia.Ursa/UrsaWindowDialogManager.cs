@@ -61,10 +61,11 @@ public class UrsaWindowDialogManager : DialogManagerBase<ContentControl>
 
     private Window? FindWindowByViewModel(INotifyPropertyChanged viewModel)
     {
-        var window = Windows.FirstOrDefault(x => ReferenceEquals(viewModel, x.DataContext));
-        var defaultWindow = (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)
-            .MainWindow;
-        return window ??defaultWindow;
+        Window? window = viewModel switch
+        {
+            _ => Windows.FirstOrDefault(x => ReferenceEquals(viewModel, x.DataContext))
+        };
+        return window;
     }
     
     public override IView? GetMainWindow()

@@ -13,5 +13,6 @@ public class UrsaViewLocator : StrongViewLocator
         Register<MainViewModel,MainWindow>();
         Register<WindowDialogViewModel, WindowDialogView>();
         Register<OverlayDialogViewModel, OverlayDialogView>();
+        Register<SampleDialogViewModel, SampleDialogView>();
     }
 }

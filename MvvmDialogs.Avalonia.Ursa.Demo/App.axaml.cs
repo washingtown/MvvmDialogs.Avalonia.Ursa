@@ -31,8 +31,9 @@ public partial class App : Application
             )
         ));
         serviceCollection.AddSingleton<MainViewModel>()
-            .AddSingleton<WindowDialogViewModel>()
-            .AddSingleton<OverlayDialogViewModel>();
+            .AddTransient<WindowDialogViewModel>()
+            .AddTransient<OverlayDialogViewModel>()
+            .AddTransient<SampleDialogViewModel>();
         
         Services = serviceCollection.BuildServiceProvider();
         

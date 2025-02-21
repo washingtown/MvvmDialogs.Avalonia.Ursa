@@ -1,0 +1,85 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:u="https://irihi.tech/ursa"
+             xmlns:vm="clr-namespace:MvvmDialogs.Avalonia.Ursa.Demo.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:SampleDialogViewModel"
+             x:Class="MvvmDialogs.Avalonia.Ursa.Demo.Views.SampleDialogView">
+    <Grid
+        MinWidth="400"
+        Margin="24"
+        RowDefinitions="Auto, *, Auto">
+        <TextBlock
+            Grid.Row="0"
+            Margin="8"
+            FontSize="16"
+            FontWeight="600"
+            Text="Add New" />
+        <u:Form
+            Grid.Row="1"
+            Margin="24"
+            HorizontalAlignment="Stretch"
+            LabelPosition="Top">
+            <u:Form.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, *" />
+                </ItemsPanelTemplate>
+            </u:Form.ItemsPanel>
+            <u:FormItem Label="Country/Region">
+                <ComboBox
+                    Width="120"
+                    ItemsSource="{Binding Cities}"
+                    SelectedItem="{Binding City}" />
+            </u:FormItem>
+            <u:FormItem
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="32,8,0,8"
+                Label="Owner">
+                <TextBox
+                    u:FocusHelper.DialogFocusHint="True"
+                    u:FormItem.Label="Owner"
+                    Text="{Binding Owner}" />
+            </u:FormItem>
+            <u:FormItem
+                Grid.Row="1"
+                Grid.Column="0"
+                Label="Target">
+                <ComboBox
+                    Width="120"
+                    ItemsSource="{Binding Cities}"
+                    SelectedItem="{Binding Target}" />
+            </u:FormItem>
+            <u:FormItem
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="32,8,0,8"
+                Label="Department">
+                <TextBox Text="{Binding Department}" />
+            </u:FormItem>
+        </u:Form>
+        <StackPanel
+            Grid.Row="2"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal"
+            Spacing="8">
+            <Button
+                Classes="Tertiary"
+                Command="{Binding OKCommand}"
+                Content="OK"
+                Theme="{DynamicResource SolidButton}" />
+            <Button
+                Classes="Tertiary"
+                Command="{Binding CancelCommand}"
+                Content="Cancel"
+                Theme="{DynamicResource SolidButton}" />
+            <ComboBox>
+                <ComboBoxItem>A</ComboBoxItem>
+                <ComboBoxItem>B</ComboBoxItem>
+                <ComboBoxItem>C</ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using HanumanInstitute.MvvmDialogs;
@@ -6,20 +7,20 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace MvvmDialogs.Avalonia.Ursa.Demo.ViewModels;
 
-public partial class MainViewModel : ViewModelBase
+public partial class MainViewModel : ViewModelBase, IIndicateToplevel
 {
     private readonly IViewLocator _viewLocator;
     private readonly IServiceProvider _serviceProvider;
     
     public MainViewModel(
         IServiceProvider serviceProvider,
-        IViewLocator viewLocator,
-        WindowDialogViewModel windowDialogViewModel)
+        IViewLocator viewLocator)
     {
         _serviceProvider = serviceProvider;
         _viewLocator = viewLocator;
         
         SelectedViewModel = _serviceProvider.GetRequiredService<WindowDialogViewModel>();
+        SelectedViewModel.ToplevelViewModel = this;
     }
 
     [ObservableProperty] 
@@ -32,5 +33,7 @@ public partial class MainViewModel : ViewModelBase
         if(viewModelType == null)
             return;
         SelectedViewModel = (ViewModelBase)_serviceProvider.GetRequiredService(viewModelType);
+        SelectedViewModel.ToplevelViewModel = this;
     }
+
 }

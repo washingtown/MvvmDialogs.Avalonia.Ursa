@@ -6,6 +6,8 @@ using HanumanInstitute.MvvmDialogs.Avalonia;
 using HanumanInstitute.MvvmDialogs.FrameworkDialogs;
 using Ursa.Controls;
 using MessageBoxButton = HanumanInstitute.MvvmDialogs.FrameworkDialogs.MessageBoxButton;
+using UrsaMessageBoxButton = Ursa.Controls.MessageBoxButton;
+using UrsaMessageBoxIcon = Ursa.Controls.MessageBoxIcon;
 
 namespace MvvmDialogs.Avalonia.Ursa;
 
@@ -25,23 +27,19 @@ public class UrsaWindowMessageBoxDialogFactory : DialogFactoryBase
     private async Task<bool?> ShowMessageBoxDialogAsync(IView? owner, MessageBoxSettings settings)
     {
         string text = settings.Content;
-        DialogOptions options = new()
+        
+        var messageWindow = new MessageBoxWindow(ToMessageBoxButton(settings.Button))
         {
+            Content = settings.Content,
             Title = settings.Title,
-            Mode = ConvertDialogMode(settings.Icon),
-            Button = ConvertDialogButton(settings.Button),
+            MessageIcon = ToMessageBoxIcon(settings.Icon),
         };
-        var window = new DefaultDialogWindow()
-        {
-            Content = new TextBlock() { Text = text }
-        };
-        ConfigureDialogWindow(window, options);
         var ownerRef = owner?.GetRef();
         switch (ownerRef)
         {
             case Window ownerWin:
             {
-                var result = await window.ShowDialog<DialogResult>(ownerWin);
+                var result = await messageWindow.ShowDialog<DialogResult>(ownerWin);
                 return result switch
                 {
                     DialogResult.Yes => true,
@@ -55,47 +53,24 @@ public class UrsaWindowMessageBoxDialogFactory : DialogFactoryBase
                 throw new InvalidCastException("Owner must be of type Window.");
         }
     }
-    
-    private DialogMode ConvertDialogMode(MessageBoxImage icon) =>
-        icon switch
-        {
-            MessageBoxImage.None => DialogMode.None,
-            MessageBoxImage.Error => DialogMode.Error,
-            MessageBoxImage.Information => DialogMode.Info,
-            MessageBoxImage.Warning => DialogMode.Warning,
-            _ => DialogMode.None
-        };
-
-    private DialogButton ConvertDialogButton(MessageBoxButton button) =>
+    private UrsaMessageBoxButton ToMessageBoxButton(MessageBoxButton button) =>
         button switch
         {
-            MessageBoxButton.Ok => DialogButton.OK,
-            MessageBoxButton.YesNo => DialogButton.YesNo,
-            MessageBoxButton.YesNoCancel => DialogButton.YesNoCancel,
-            _ => DialogButton.OK
+            MessageBoxButton.Ok => UrsaMessageBoxButton.OK,
+            MessageBoxButton.YesNo => UrsaMessageBoxButton.YesNo,
+            MessageBoxButton.OkCancel => UrsaMessageBoxButton.OKCancel,
+            MessageBoxButton.YesNoCancel => UrsaMessageBoxButton.YesNoCancel,
+            _ => UrsaMessageBoxButton.OK
         };
     
-    /// <summary>
-    /// Attach options to dialog window.
-    /// </summary>
-    /// <param name="window"></param>
-    /// <param name="options"></param>
-    private static void ConfigureDialogWindow(DialogWindow window, DialogOptions? options)
-    {
-        options ??= new DialogOptions();
-        window.WindowStartupLocation = options.StartupLocation;
-        window.Title = options.Title;
-        window.ShowInTaskbar = options.ShowInTaskBar;
-        if (options.StartupLocation == WindowStartupLocation.Manual)
+    private UrsaMessageBoxIcon ToMessageBoxIcon(MessageBoxImage icon) =>
+        icon switch
         {
-            if (options.Position is not null)
-            {
-                window.Position = options.Position.Value;
-            }
-            else
-            {
-                window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            }
-        }
-    }
+            MessageBoxImage.None => UrsaMessageBoxIcon.None,
+            MessageBoxImage.Error => UrsaMessageBoxIcon.Error,
+            MessageBoxImage.Information => UrsaMessageBoxIcon.Information,
+            MessageBoxImage.Warning => UrsaMessageBoxIcon.Warning,
+            MessageBoxImage.Stop => UrsaMessageBoxIcon.Stop,
+            _ => UrsaMessageBoxIcon.None
+        };
 }
