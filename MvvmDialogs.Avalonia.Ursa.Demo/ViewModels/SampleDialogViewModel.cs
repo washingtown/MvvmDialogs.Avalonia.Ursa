@@ -40,7 +40,7 @@ public partial class SampleDialogViewModel : ViewModelBase, ICloseable, IModalDi
 
     public ICommand OKCommand { get; set; }
     public ICommand CancelCommand { get; set; }
-
+    
     private void OK()
     {
         DialogResult = true;

@@ -9,12 +9,12 @@ namespace MvvmDialogs.Avalonia.Ursa;
 
 public class UrsaWindowViewWrapper : IView
 {
-    public UrsaWindowViewWrapper(Func<Window>? windowFactory = null)
+    public UrsaWindowViewWrapper(IWindowFactory? windowFactory = null)
     {
         _windowFactory = windowFactory;
     }
 
-    private readonly Func<Window>? _windowFactory;
+    private readonly IWindowFactory? _windowFactory;
     /// <inheritdoc />
     public void Initialize(INotifyPropertyChanged viewModel, ViewDefinition viewDef)
     {
@@ -31,10 +31,10 @@ public class UrsaWindowViewWrapper : IView
                 Ref = window;
                 break;
             }
-            case UserControl userControl:
+            case ContentControl control:
             {
-                Ref = _windowFactory?.Invoke() ?? new DialogWindow();
-                Ref.Content = userControl;
+                Ref = _windowFactory?.CreateWindow() ?? new DialogWindow() { CanResize = true };
+                Ref.Content = control;
                 break;
             }
             default:
@@ -43,8 +43,12 @@ public class UrsaWindowViewWrapper : IView
                     $"The type of created view must be {typeof(Window)}, but got {view.GetType().Name}");
             }
         }
-
+        
         ViewModel = viewModel;
+        if (ViewModel is IDialogContextOwner dialogContextOwner)
+        {
+            dialogContextOwner.DialogContext = new DialogContext(Ref.GetHashCode(), null);
+        }
     }
     
     
@@ -64,6 +68,7 @@ public class UrsaWindowViewWrapper : IView
         }
         else
         {
+            Ref.Icon ??= own.Icon;
             Ref.Show(own);
         }
     }
@@ -77,6 +82,7 @@ public class UrsaWindowViewWrapper : IView
                 $"The type of {nameof(IView.RefObj)} must be {typeof(Window)}, but got {owner?.RefObj.GetType().Name}")
         };
         SetMainWindowIfEmpty(Ref);
+        Ref.Icon ??= own.Icon;
         return Ref.ShowDialog<bool>(own);
     }
 
@@ -138,7 +144,7 @@ public class UrsaWindowViewWrapper : IView
         remove
         {
             if (value == null) return;
-            Ref.Closing += _closingHandlers[value];
+            Ref.Closing -= _closingHandlers[value];
             _closingHandlers.Remove(value);
         }
     }

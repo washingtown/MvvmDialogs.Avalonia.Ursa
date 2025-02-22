@@ -19,5 +19,8 @@
                 <Setter Property="helpers:ClassHelper.Classes" Value="Warning"></Setter>
             </Style>
         </Style>
+        <!-- <Style Selector="u|UrsaWindow"> -->
+        <!--     <Setter Property="ExtendClientAreaChromeHints" Value="SystemChrome"/> -->
+        <!-- </Style> -->
     </Application.Styles>
 </Application>

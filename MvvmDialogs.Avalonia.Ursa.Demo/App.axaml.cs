@@ -22,21 +22,20 @@ public partial class App : Application
         AvaloniaXamlLoader.Load(this);
 
         var serviceCollection = new ServiceCollection();
-        serviceCollection.AddSingleton<UrsaViewLocator>()
-            .AddSingleton<IViewLocator>(provider => provider.GetRequiredService<UrsaViewLocator>());
-        serviceCollection.AddSingleton<IDialogService>(provider => new DialogService(
-            new UrsaWindowDialogManager(
-                viewLocator: provider.GetService<IViewLocator>(),
-                dialogFactory: new DialogFactory().AddUrsaWindowMessageBox()
-            )
-        ));
+        serviceCollection.AddScoped<UrsaViewLocator>()
+            .AddScoped<IViewLocator>(provider => provider.GetRequiredService<UrsaViewLocator>());
+        
+        serviceCollection.AddScoped<IDialogContextProvider, DialogContextProvider>();
+        
+        serviceCollection.AddKeyedSingleton<IDialogService,UrsaWindowDialogService>("Window");
+        serviceCollection.AddKeyedSingleton<IDialogService,UrsaOverlayDialogService>("Overlay");
         serviceCollection.AddSingleton<MainViewModel>()
             .AddTransient<WindowDialogViewModel>()
             .AddTransient<OverlayDialogViewModel>()
-            .AddTransient<SampleDialogViewModel>();
+            .AddTransient<SampleDialogViewModel>()
+            .AddTransient<SampleDialogWindowViewModel>();
         
         Services = serviceCollection.BuildServiceProvider();
-        
     }
 
     public override void OnFrameworkInitializationCompleted()

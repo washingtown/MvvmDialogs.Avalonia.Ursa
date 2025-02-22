@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace MvvmDialogs.Avalonia.Ursa.Demo.ViewModels;
 
-public partial class MainViewModel : ViewModelBase, IIndicateToplevel
+public partial class MainViewModel : ViewModelBase
 {
     private readonly IViewLocator _viewLocator;
     private readonly IServiceProvider _serviceProvider;
@@ -20,7 +20,6 @@ public partial class MainViewModel : ViewModelBase, IIndicateToplevel
         _viewLocator = viewLocator;
         
         SelectedViewModel = _serviceProvider.GetRequiredService<WindowDialogViewModel>();
-        SelectedViewModel.ToplevelViewModel = this;
     }
 
     [ObservableProperty] 
@@ -33,7 +32,6 @@ public partial class MainViewModel : ViewModelBase, IIndicateToplevel
         if(viewModelType == null)
             return;
         SelectedViewModel = (ViewModelBase)_serviceProvider.GetRequiredService(viewModelType);
-        SelectedViewModel.ToplevelViewModel = this;
     }
 
 }

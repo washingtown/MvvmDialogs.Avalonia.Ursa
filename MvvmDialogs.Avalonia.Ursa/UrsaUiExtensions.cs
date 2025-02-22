@@ -16,7 +16,7 @@ public static class UrsaUiExtensions
     /// <param name="view">The Window to get a wrapper for.</param>
     /// <param name="windowFactory"></param>
     /// <returns>A UrsaWindowViewWrapper referencing the view.</returns>
-    public static UrsaWindowViewWrapper? AsWindowWrapper(this ContentControl? view, Func<Window>? windowFactory = null)
+    public static UrsaWindowViewWrapper? AsWindowWrapper(this ContentControl? view, IWindowFactory? windowFactory = null)
     {
         if (view == null)
         {

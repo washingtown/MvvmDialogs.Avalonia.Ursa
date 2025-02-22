@@ -11,12 +11,12 @@ using UrsaMessageBoxIcon = Ursa.Controls.MessageBoxIcon;
 
 namespace MvvmDialogs.Avalonia.Ursa;
 
-public class UrsaWindowMessageBoxDialogFactory : DialogFactoryBase
+public abstract class UrsaMessageBoxDialogFactoryBase : DialogFactoryBase
 {
-    public UrsaWindowMessageBoxDialogFactory(IDialogFactory? chain) : base(chain)
+    protected UrsaMessageBoxDialogFactoryBase(IDialogFactory? chain) : base(chain)
     {
     }
-
+    
     public override async Task<object?> ShowDialogAsync<TSettings>(IView? owner, TSettings settings)=>
         settings switch
         {
@@ -24,36 +24,9 @@ public class UrsaWindowMessageBoxDialogFactory : DialogFactoryBase
             _ => await base.ShowDialogAsync(owner, settings).ConfigureAwait(true)
         };
 
-    private async Task<bool?> ShowMessageBoxDialogAsync(IView? owner, MessageBoxSettings settings)
-    {
-        string text = settings.Content;
-        
-        var messageWindow = new MessageBoxWindow(ToMessageBoxButton(settings.Button))
-        {
-            Content = settings.Content,
-            Title = settings.Title,
-            MessageIcon = ToMessageBoxIcon(settings.Icon),
-        };
-        var ownerRef = owner?.GetRef();
-        switch (ownerRef)
-        {
-            case Window ownerWin:
-            {
-                var result = await messageWindow.ShowDialog<DialogResult>(ownerWin);
-                return result switch
-                {
-                    DialogResult.Yes => true,
-                    DialogResult.OK => true,
-                    DialogResult.No => false,
-                    DialogResult.Cancel => null,
-                    _ => null
-                };
-            }
-            default:
-                throw new InvalidCastException("Owner must be of type Window.");
-        }
-    }
-    private UrsaMessageBoxButton ToMessageBoxButton(MessageBoxButton button) =>
+    protected abstract Task<bool?> ShowMessageBoxDialogAsync(IView? owner, MessageBoxSettings settings);
+    
+    protected UrsaMessageBoxButton ToMessageBoxButton(MessageBoxButton button) =>
         button switch
         {
             MessageBoxButton.Ok => UrsaMessageBoxButton.OK,
@@ -63,7 +36,7 @@ public class UrsaWindowMessageBoxDialogFactory : DialogFactoryBase
             _ => UrsaMessageBoxButton.OK
         };
     
-    private UrsaMessageBoxIcon ToMessageBoxIcon(MessageBoxImage icon) =>
+    protected UrsaMessageBoxIcon ToMessageBoxIcon(MessageBoxImage icon) =>
         icon switch
         {
             MessageBoxImage.None => UrsaMessageBoxIcon.None,

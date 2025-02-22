@@ -5,9 +5,9 @@ using Ursa.Controls;
 
 namespace MvvmDialogs.Avalonia.Ursa.Demo.Views;
 
-public partial class OverlayDialogView : UrsaView
+public partial class SampleDialogWindow : UrsaWindow
 {
-    public OverlayDialogView()
+    public SampleDialogWindow()
     {
         InitializeComponent();
     }

@@ -31,6 +31,10 @@
                 <CheckBox u:FormItem.Label="Modal" IsChecked="{Binding IsSampleViewModal}"/>
                 <Button u:FormItem.NoLabel="True"
                         Command="{Binding ShowSampleViewCommand}">Show SampleView</Button>
+                <Button u:FormItem.NoLabel="True"
+                        Command="{Binding ShowSampleWindowCommand}">Show SampleWindow</Button>
+                <Button u:FormItem.NoLabel="True"
+                        Command="{Binding ShowInNewWindowCommand}">Show in new Window</Button>
                 <TextBlock u:FormItem.NoLabel="True" Text="{Binding SampleViewResult, StringFormat='SampleView result: {0}'}"/>
             </u:Form>
         </HeaderedContentControl>
