@@ -4,6 +4,15 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Version>0.1.0</Version>
+    <Title>MvvmDialogs.Avalonia.Ursa</Title>
+    <Authors>washingtown</Authors>
+    <Description>An implementation of HanumanInstitute.MvvmDialogs using Ursa.Avalonia as UI.</Description>
+    <PackageProjectUrl>https://github.com/washingtown/MvvmDialogs.Avalonia.Ursa</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/washingtown/MvvmDialogs.Avalonia.Ursa/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/washingtown/MvvmDialogs.Avalonia.Ursa</RepositoryUrl>
+    <PackageTags>Avalonia MVVM Ursa</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
