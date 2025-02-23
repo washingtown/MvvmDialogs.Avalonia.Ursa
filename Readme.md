@@ -1,5 +1,7 @@
 # MvvmDialogs.Avalonia.Ursa
 
+[![MvvmDialogs.Avalonia.Ursa](https://img.shields.io/nuget/v/MvvmDialogs.Avalonia.Ursa.svg?color=red&style=flat-square)](https://www.nuget.org/packages/MvvmDialogs.Avalonia.Ursa/)
+
 An implementation of [HanumanInstitute.MvvmDialogs](https://github.com/mysteryx93/HanumanInstitute.MvvmDialogs) using [Ursa.Avalonia](https://github.com/irihitech/Ursa.Avalonia) as UI.
 
 ## Usage
