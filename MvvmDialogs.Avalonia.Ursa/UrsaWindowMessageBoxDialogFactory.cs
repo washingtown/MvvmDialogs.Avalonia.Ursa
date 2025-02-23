@@ -10,7 +10,9 @@ using UrsaMessageBoxButton = Ursa.Controls.MessageBoxButton;
 using UrsaMessageBoxIcon = Ursa.Controls.MessageBoxIcon;
 
 namespace MvvmDialogs.Avalonia.Ursa;
-
+/// <summary>
+/// DialogFactory to provide Ursa window messagebox.
+/// </summary>
 public class UrsaWindowMessageBoxDialogFactory : UrsaMessageBoxDialogFactoryBase
 {
     public UrsaWindowMessageBoxDialogFactory(IDialogFactory? chain) : base(chain)

@@ -4,6 +4,9 @@ using Microsoft.Extensions.Logging;
 
 namespace MvvmDialogs.Avalonia.Ursa;
 
+/// <summary>
+/// DialogService to provide Ursa overlay dialogs.
+/// </summary>
 public class UrsaOverlayDialogService : DialogServiceBase
 {
     public UrsaOverlayDialogService(

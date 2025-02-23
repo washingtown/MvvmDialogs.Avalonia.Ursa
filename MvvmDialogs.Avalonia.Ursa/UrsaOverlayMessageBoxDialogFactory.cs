@@ -3,7 +3,9 @@ using HanumanInstitute.MvvmDialogs.FrameworkDialogs;
 using Ursa.Controls;
 
 namespace MvvmDialogs.Avalonia.Ursa;
-
+/// <summary>
+/// DialogFactory to provide Ursa overlay messagebox.
+/// </summary>
 public class UrsaOverlayMessageBoxDialogFactory : UrsaMessageBoxDialogFactoryBase
 {
     public UrsaOverlayMessageBoxDialogFactory(IDialogFactory? chain) : base(chain)

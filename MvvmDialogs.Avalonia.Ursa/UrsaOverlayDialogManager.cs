@@ -7,6 +7,9 @@ using Microsoft.Extensions.Logging;
 
 namespace MvvmDialogs.Avalonia.Ursa;
 
+/// <summary>
+/// DialogManager to provide Ursa overlay dialogs.
+/// </summary>
 public class UrsaOverlayDialogManager : UrsaDialogManagerBase
 {
     private readonly IDispatcher _dispatcher;

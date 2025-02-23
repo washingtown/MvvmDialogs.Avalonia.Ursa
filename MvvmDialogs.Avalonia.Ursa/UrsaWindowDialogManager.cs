@@ -12,7 +12,9 @@ using Ursa.Controls;
 using MessageBoxButton = HanumanInstitute.MvvmDialogs.FrameworkDialogs.MessageBoxButton;
 
 namespace MvvmDialogs.Avalonia.Ursa;
-
+/// <summary>
+/// DialogManager to provide Ursa window dialogs.
+/// </summary>
 public class UrsaWindowDialogManager : UrsaDialogManagerBase
 {
 

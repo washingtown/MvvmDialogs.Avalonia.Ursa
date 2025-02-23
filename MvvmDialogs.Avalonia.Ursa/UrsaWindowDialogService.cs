@@ -4,7 +4,9 @@ using HanumanInstitute.MvvmDialogs.Avalonia;
 using Microsoft.Extensions.Logging;
 
 namespace MvvmDialogs.Avalonia.Ursa;
-
+/// <summary>
+/// DialogService to provide Ursa window dialogs.
+/// </summary>
 public class UrsaWindowDialogService : DialogServiceBase
 {
     public UrsaWindowDialogService(

@@ -29,13 +29,14 @@ public abstract class UrsaDialogManagerBase : DialogManagerBase<ContentControl>
     
     protected static IEnumerable<Window> Windows =>
         (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.Windows ?? Array.Empty<Window>();
-    
+
+    /// <inheritdoc />
     public override IView? GetMainWindow()
     {
         var mainWindow = (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.AsWindowWrapper(WindowFactory);
         return mainWindow;
     }
-
+    /// <inheritdoc />
     public override IView? GetDummyWindow()
     {
         var parent = new Window()
@@ -51,11 +52,12 @@ public abstract class UrsaDialogManagerBase : DialogManagerBase<ContentControl>
         parent.Show();
         return parent.AsWindowWrapper();
     }
+    /// <inheritdoc />
     public override IView? FindViewByViewModel(INotifyPropertyChanged viewModel)
     {
         return FindWindowByViewModel(viewModel).AsWindowWrapper(WindowFactory);
     }
-
+    
     private Window? FindWindowByViewModel(INotifyPropertyChanged viewModel)
     {
         Window? window = viewModel switch
