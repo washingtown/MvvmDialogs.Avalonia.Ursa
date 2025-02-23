@@ -8,7 +8,7 @@ An implementation of [HanumanInstitute.MvvmDialogs](https://github.com/mysteryx9
 
 Use `UrsaWindowDialogService` if you want to show dialog as a Window, and `UrsaOverlayDialogService` as an Overlay Dialog.
 
-# Screenshots
+## Screenshots
 
 Window dialog
 ![dialog-window.png](dialog-window.png)
@@ -21,6 +21,7 @@ Overlay dialog
 A problem of using MVVM Dialog is how to identify the owner Window, especially when your APP has multiple windows.
 
 `DialogContext` can be used to find owner Window. Implement `IDialogContextOwner` interface in your ViewModel class, set `DialogContext.ToplevelHashCode` as the HashCode of the window you want to show dialog in, and set `this` as owner ViewModel when show dialog. The manager would automatically find the right window.
+
 
 `DialogContext.HostId` is used to find `OverlayDialogHost` when using `UrsaOverlayDialogService`. This is required only when you are using a `OverlayDialogHost` in you control; if you use `UrsaWindow` or `UrsaView`, just set the ToplevelHashCode as the owner window's hashcode, Ursa can find the right window and OverlayDialogHost to show dialog in.
 

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -33,7 +32,7 @@ public partial class SampleDialogViewModel : ViewModelBase, ICloseable, IModalDi
 
     public void Close()
     {
-        RequestClose?.Invoke(this, null);
+        RequestClose?.Invoke(this, EventArgs.Empty);
     }
 
     public event EventHandler? RequestClose;

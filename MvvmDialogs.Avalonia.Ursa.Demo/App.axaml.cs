@@ -1,12 +1,10 @@
 using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Avalonia.Markup.Xaml;
 using HanumanInstitute.MvvmDialogs;
-using HanumanInstitute.MvvmDialogs.Avalonia;
 using Microsoft.Extensions.DependencyInjection;
 using MvvmDialogs.Avalonia.Ursa.Demo.ViewModels;
 using MvvmDialogs.Avalonia.Ursa.Demo.Views;
@@ -15,7 +13,7 @@ namespace MvvmDialogs.Avalonia.Ursa.Demo;
 
 public partial class App : Application
 {
-    public IServiceProvider Services { get; private set; }
+    public IServiceProvider Services { get; private set; } = null!;
 
     public override void Initialize()
     {
